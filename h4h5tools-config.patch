@@ -1,48 +1,3 @@
---- h4h5tools-1.1/configure.ac.orig	2003-06-25 01:47:22.000000000 +0200
-+++ h4h5tools-1.1/configure.ac	2003-07-19 15:13:22.000000000 +0200
-@@ -331,17 +331,8 @@
-     AC_CHECK_LIB([z], [compress],,
-                  [AC_MSG_ERROR([cannot find zlib library.])])
- 
--    dnl -------------------------------------------------------------------
--    dnl Because of weird platforms which have broken jpeg libraries in
--    dnl their system directories, we want to link only with the HDF4
--    dnl static jpeg library. This is a small hack to accomplish that.
--    dnl
--    LIBS="$LIBS $hdf4_lib/libjpeg.a"
--    AC_MSG_CHECKING([for jpeg library])
--    AC_TRY_LINK([char jpeg_start_compress();], [jpeg_start_compress],
--                [AC_MSG_RESULT([yes])],
-+    AC_CHECK_LIB([jpeg], [jpeg_start_compress],,
-                 [AC_MSG_ERROR([cannot find jpeg library.])])
--
-     AC_CHECK_LIB([df], [Hstartaccess],,
-                  [AC_MSG_ERROR([cannot find df library.])])
-     AC_CHECK_LIB([mfhdf], [SDstart],,
-@@ -343,12 +343,7 @@
- dnl ----------------------------------------------------------------------
- dnl WE DON'T HAVE TO CHECK ZLIB SINCE ZLIB IS ALWAYS ASSOCIATED WITH HDF4.
- 
--dnl ----------------------------------------------------------------------
--dnl Check that we can build a simple HDF5 program.
--dnl
--AC_MSG_CHECKING([that we can compile a simple HDF5 program])
--AC_TRY_LINK([
--#include "hdf5.h"], [H5open;], AC_MSG_RESULT([yes]),
-+AC_CHECK_LIB([hdf5], [H5open],,
-              [AC_MSG_ERROR([cannot find the HDF5 library.])])
- 
- dnl ----------------------------------------------------------------------
---- h4h5tools-1.1/lib/src/Makefile.in.orig	2002-03-19 20:44:26.000000000 +0100
-+++ h4h5tools-1.1/lib/src/Makefile.in	2003-07-19 15:29:32.000000000 +0200
-@@ -13,7 +13,6 @@
- 
- ## This is our main target, but also remove the settings file when cleaning.
- LIB=libh4toh5.la
--LIBS=
- CLEAN=
- 
- ## Add include directory to the C preprocessor flags
 --- h4h5tools-1.1/config/commence.in.orig	2003-05-30 00:04:42.000000000 +0200
 +++ h4h5tools-1.1/config/commence.in	2003-07-19 15:30:14.000000000 +0200
 @@ -49,7 +49,7 @@
@@ -54,17 +9,3 @@
  LT_UNINSTALL=$(LT) --mode=uninstall $(RM)
  
  ## Optional variables. We must declare them here because Irix pmake
---- h4h5tools-1.1/utils/h4toh5/Makefile.in.orig	2003-06-13 22:59:45.000000000 +0200
-+++ h4h5tools-1.1/utils/h4toh5/Makefile.in	2003-07-19 15:37:28.000000000 +0200
-@@ -69,9 +69,9 @@
- 	@chmod u+x testh4toh5.sh
- 
- h4toh5test: h4toh5test.lo
--	@$(LT_LINK_EXE) -static $(CFLAGS) -o $@ h4toh5test.lo $(LDFLAGS) $(LIBH4TOH5) $(LIBS)
-+	@$(LT_LINK_EXE) $(CFLAGS) -o $@ h4toh5test.lo $(LDFLAGS) $(LIBH4TOH5) $(LIBS)
- 
- h4toh5: $(PROG_OBJ)
--	@$(LT_LINK_EXE) -static $(CFLAGS) -o $@ $(PROG_OBJ) $(LDFLAGS) $(LIBH4TOH5) $(LIBS)
-+	@$(LT_LINK_EXE) $(CFLAGS) -o $@ $(PROG_OBJ) $(LDFLAGS) $(LIBH4TOH5) $(LIBS)
- 
- @CONCLUDE@
