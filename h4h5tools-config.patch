@@ -1,0 +1,54 @@
+--- h4h5tools/config/gnu-flags.orig	Tue Mar 19 20:44:35 2002
++++ h4h5tools/config/gnu-flags	Sat Oct  5 15:54:04 2002
+@@ -76,42 +76,6 @@
+ 
+ fi
+ 
+-# Architecture-specific flags
+-case "$host_os-$host_cpu" in
+-    # FreeBSD sets the information from "hostname -m" to the general machine
+-    # architecture, not the specific CPU for the machine, so even our
+-    # Pentium II Xeon server is set to "i386".  Once we know we are on a FreeBSD
+-    # machine, use the "sysctl" command to get the CPU hardware model.
+-    freebsd*)
+-        host_cpu_model=`sysctl -n hw.model`
+-        case "$host_cpu_model" in
+-            # Hmm.. this might not catch Celerons, but it won't hurt them either...
+-            *Pro*|*II*)
+-                # This check should be kept in sync with the *-i686 check below
+-                case "$cc_vendor-$cc_version" in
+-                    gcc-2.95*)
+-                        ARCH=${ARCH:="-march=i686 -malign-double"}
+-                        ;;
+-                    gcc-*|egcs-*|pgcc-*)
+-                        ARCH=${ARCH:="-mcpu=pentiumpro -march=pentiumpro -malign-double"}
+-                        ;;
+-                esac
+-            ;;
+-        esac
+-        ;;
+-
+-    *-i686)
+-        case "$cc_vendor-$cc_version" in
+-            gcc-2.9[56]*)
+-                ARCH=${ARCH:="-march=i686 -malign-double"}
+-                ;;
+-            gcc-*|egcs-*|pgcc-*)
+-                ARCH=${ARCH:="-mcpu=pentiumpro -march=pentiumpro -malign-double"}
+-                ;;
+-        esac
+-        ;;
+-esac
+-
+ # Host-specific flags
+ case "`hostname`" in
+     hawkwind.ncsa.uiuc.edu)
+@@ -160,7 +124,7 @@
+ 	cc_flags_set=yes
+ 	;;
+ 
+-    gcc-2.95.[3456789])
++    gcc-2.95.[3456789]|gcc-3*)
+         # Start using the C99 Standard's extensions (long long, etc.)
+         # (Not quite yet... -QAK)
+         # General
