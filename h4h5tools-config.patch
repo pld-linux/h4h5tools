@@ -1,54 +1,70 @@
---- h4h5tools/config/gnu-flags.orig	Tue Mar 19 20:44:35 2002
-+++ h4h5tools/config/gnu-flags	Sat Oct  5 15:54:04 2002
-@@ -76,42 +76,6 @@
+--- h4h5tools-1.1/configure.ac.orig	2003-06-25 01:47:22.000000000 +0200
++++ h4h5tools-1.1/configure.ac	2003-07-19 15:13:22.000000000 +0200
+@@ -331,17 +331,8 @@
+     AC_CHECK_LIB([z], [compress],,
+                  [AC_MSG_ERROR([cannot find zlib library.])])
  
- fi
- 
--# Architecture-specific flags
--case "$host_os-$host_cpu" in
--    # FreeBSD sets the information from "hostname -m" to the general machine
--    # architecture, not the specific CPU for the machine, so even our
--    # Pentium II Xeon server is set to "i386".  Once we know we are on a FreeBSD
--    # machine, use the "sysctl" command to get the CPU hardware model.
--    freebsd*)
--        host_cpu_model=`sysctl -n hw.model`
--        case "$host_cpu_model" in
--            # Hmm.. this might not catch Celerons, but it won't hurt them either...
--            *Pro*|*II*)
--                # This check should be kept in sync with the *-i686 check below
--                case "$cc_vendor-$cc_version" in
--                    gcc-2.95*)
--                        ARCH=${ARCH:="-march=i686 -malign-double"}
--                        ;;
--                    gcc-*|egcs-*|pgcc-*)
--                        ARCH=${ARCH:="-mcpu=pentiumpro -march=pentiumpro -malign-double"}
--                        ;;
--                esac
--            ;;
--        esac
--        ;;
+-    dnl -------------------------------------------------------------------
+-    dnl Because of weird platforms which have broken jpeg libraries in
+-    dnl their system directories, we want to link only with the HDF4
+-    dnl static jpeg library. This is a small hack to accomplish that.
+-    dnl
+-    LIBS="$LIBS $hdf4_lib/libjpeg.a"
+-    AC_MSG_CHECKING([for jpeg library])
+-    AC_TRY_LINK([char jpeg_start_compress();], [jpeg_start_compress],
+-                [AC_MSG_RESULT([yes])],
++    AC_CHECK_LIB([jpeg], [jpeg_start_compress],,
+                 [AC_MSG_ERROR([cannot find jpeg library.])])
 -
--    *-i686)
--        case "$cc_vendor-$cc_version" in
--            gcc-2.9[56]*)
--                ARCH=${ARCH:="-march=i686 -malign-double"}
--                ;;
--            gcc-*|egcs-*|pgcc-*)
--                ARCH=${ARCH:="-mcpu=pentiumpro -march=pentiumpro -malign-double"}
--                ;;
--        esac
--        ;;
--esac
--
- # Host-specific flags
- case "`hostname`" in
-     hawkwind.ncsa.uiuc.edu)
-@@ -160,7 +124,7 @@
- 	cc_flags_set=yes
- 	;;
+     AC_CHECK_LIB([df], [Hstartaccess],,
+                  [AC_MSG_ERROR([cannot find df library.])])
+     AC_CHECK_LIB([mfhdf], [SDstart],,
+@@ -343,12 +343,7 @@
+ dnl ----------------------------------------------------------------------
+ dnl WE DON'T HAVE TO CHECK ZLIB SINCE ZLIB IS ALWAYS ASSOCIATED WITH HDF4.
  
--    gcc-2.95.[3456789])
-+    gcc-2.95.[3456789]|gcc-3*)
-         # Start using the C99 Standard's extensions (long long, etc.)
-         # (Not quite yet... -QAK)
-         # General
+-dnl ----------------------------------------------------------------------
+-dnl Check that we can build a simple HDF5 program.
+-dnl
+-AC_MSG_CHECKING([that we can compile a simple HDF5 program])
+-AC_TRY_LINK([
+-#include "hdf5.h"], [H5open;], AC_MSG_RESULT([yes]),
++AC_CHECK_LIB([hdf5], [H5open],,
+              [AC_MSG_ERROR([cannot find the HDF5 library.])])
+ 
+ dnl ----------------------------------------------------------------------
+--- h4h5tools-1.1/lib/src/Makefile.in.orig	2002-03-19 20:44:26.000000000 +0100
++++ h4h5tools-1.1/lib/src/Makefile.in	2003-07-19 15:29:32.000000000 +0200
+@@ -13,7 +13,6 @@
+ 
+ ## This is our main target, but also remove the settings file when cleaning.
+ LIB=libh4toh5.la
+-LIBS=
+ CLEAN=
+ 
+ ## Add include directory to the C preprocessor flags
+--- h4h5tools-1.1/config/commence.in.orig	2003-05-30 00:04:42.000000000 +0200
++++ h4h5tools-1.1/config/commence.in	2003-07-19 15:30:14.000000000 +0200
+@@ -49,7 +49,7 @@
+ LT_LINK_EXE=$(LT) --mode=link $(CC) $(LT_STATIC_EXEC) -dlopen self -rpath $(bindir)
+ LT_RUN=$(LT) --mode=execute
+ LT_INSTALL_PROG=$(LT) --mode=install $(INSTALL_PROGRAM)
+-LT_INSTALL_LIB=$(LT) --mode=install $(INSTALL_DATA)
++LT_INSTALL_LIB=$(LT) --mode=install $(INSTALL_PROGRAM)
+ LT_UNINSTALL=$(LT) --mode=uninstall $(RM)
+ 
+ ## Optional variables. We must declare them here because Irix pmake
+--- h4h5tools-1.1/utils/h4toh5/Makefile.in.orig	2003-06-13 22:59:45.000000000 +0200
++++ h4h5tools-1.1/utils/h4toh5/Makefile.in	2003-07-19 15:37:28.000000000 +0200
+@@ -69,9 +69,9 @@
+ 	@chmod u+x testh4toh5.sh
+ 
+ h4toh5test: h4toh5test.lo
+-	@$(LT_LINK_EXE) -static $(CFLAGS) -o $@ h4toh5test.lo $(LDFLAGS) $(LIBH4TOH5) $(LIBS)
++	@$(LT_LINK_EXE) $(CFLAGS) -o $@ h4toh5test.lo $(LDFLAGS) $(LIBH4TOH5) $(LIBS)
+ 
+ h4toh5: $(PROG_OBJ)
+-	@$(LT_LINK_EXE) -static $(CFLAGS) -o $@ $(PROG_OBJ) $(LDFLAGS) $(LIBH4TOH5) $(LIBS)
++	@$(LT_LINK_EXE) $(CFLAGS) -o $@ $(PROG_OBJ) $(LDFLAGS) $(LIBH4TOH5) $(LIBS)
+ 
+ @CONCLUDE@

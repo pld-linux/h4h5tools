@@ -1,12 +1,12 @@
 Summary:	HDF 4.x to/from HDF5 conversion tools
 Summary(pl):	Narzêdzia do konwersji pomiêdzy HDF 4.x i HDF5
 Name:		h4h5tools
-Version:	1.0
-Release:	2
+Version:	1.1
+Release:	1
 Group:		Applications/File
 License:	Nearly BSD, but changed sources must be marked
-Source0:	ftp://ftp.ncsa.uiuc.edu/HDF/HDF5/h4toh5/src/%{name}.tar.gz
-# Source0-md5:	e34075dfc5f86a9697792f7fb36f3663
+Source0:	ftp://ftp.ncsa.uiuc.edu/HDF/HDF5/h4toh5/%{name}-%{version}.tar.gz
+# Source0-md5:	2cd7bcbeb649da0dd36a5a0b85e4f6a1
 Source1:	http://hdf.ncsa.uiuc.edu/h4toh5/h4toh5lib_UG.pdf
 # Source1-md5:	b2ca3e1e0a2de059842b8894518aa738
 Patch0:		%{name}-config.patch
@@ -47,6 +47,8 @@ Summary:	Header files for HDF 4.x to/from HDF5 conversion library
 Summary(pl):	Pliki nag³ówkowe biblioteki konwersji pomiêdzy HDF 4.x i HDF5
 Group:		Development/Libraries
 Requires:	%{name}-lib = %{version}
+Requires:	hdf-devel
+Requires:	hdf5-devel
 
 %description devel
 Header files and documentation for HDF 4.x to/from HDF5 format
@@ -71,7 +73,7 @@ Biblioteka statyczna do konwersji plików z formatu HDF 4.x do HDF5
 oraz z HDF5 do HDF 4.x.
 
 %prep
-%setup -q -n %{name}
+%setup -q
 %patch -p1
 install %{SOURCE1} .
 
