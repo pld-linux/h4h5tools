@@ -6,7 +6,9 @@ Release:	2
 Group:		Applications/File
 License:	Nearly BSD, but changed sources must be marked
 Source0:	ftp://ftp.ncsa.uiuc.edu/HDF/HDF5/h4toh5/src/%{name}.tar.gz
+# Source0-md5:	e34075dfc5f86a9697792f7fb36f3663
 Source1:	http://hdf.ncsa.uiuc.edu/h4toh5/h4toh5lib_UG.pdf
+# Source1-md5:	b2ca3e1e0a2de059842b8894518aa738
 Patch0:		%{name}-config.patch
 URL:		http://hdf.ncsa.uiuc.edu/h4toh5/
 BuildRequires:	autoconf
