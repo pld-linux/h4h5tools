@@ -1,5 +1,5 @@
 Summary:	HDF 4.x to/from HDF5 conversion tools
-Summary(pl):	Narz阣zia do konwersji pomi阣zy HDF 4.x i HDF5
+Summary(pl.UTF-8):   Narz臋dzia do konwersji pomi臋dzy HDF 4.x i HDF5
 Name:		h4h5tools
 Version:	1.2
 Release:	1
@@ -28,26 +28,26 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Utilities to convert files from HDF 4.x to HDF5 or from HDF5 to HDF
 4.x format.
 
-%description -l pl
-Narz阣zia do konwersji plik體 z formatu HDF 4.x do HDF5 oraz z HDF5 do
+%description -l pl.UTF-8
+Narz臋dzia do konwersji plik贸w z formatu HDF 4.x do HDF5 oraz z HDF5 do
 HDF 4.x.
 
 %package lib
 Summary:	HDF 4.x to/from HDF5 conversion library
-Summary(pl):	Biblioteka do konwersji pomi阣zy HDF 4.x i HDF5
+Summary(pl.UTF-8):   Biblioteka do konwersji pomi臋dzy HDF 4.x i HDF5
 Group:		Development/Libraries
 
 %description lib
 Library for file convertion from HDF 4.x to HDF5 or from HDF5 to HDF
 4.x format.
 
-%description lib -l pl
-Biblioteka do konwersji plik體 z formatu HDF 4.x do HDF5 oraz z HDF5
+%description lib -l pl.UTF-8
+Biblioteka do konwersji plik贸w z formatu HDF 4.x do HDF5 oraz z HDF5
 do HDF 4.x.
 
 %package devel
 Summary:	Header files for HDF 4.x to/from HDF5 conversion library
-Summary(pl):	Pliki nag丑wkowe biblioteki konwersji pomi阣zy HDF 4.x i HDF5
+Summary(pl.UTF-8):   Pliki nag艂贸wkowe biblioteki konwersji pomi臋dzy HDF 4.x i HDF5
 Group:		Development/Libraries
 Requires:	%{name}-lib = %{version}-%{release}
 Requires:	hdf-devel
@@ -57,13 +57,13 @@ Requires:	hdf5-devel
 Header files and documentation for HDF 4.x to/from HDF5 format
 conversion library.
 
-%description devel -l pl
-Pliki nag丑wkowe i dokumentacja do biblioteki konwersji plik體 z
+%description devel -l pl.UTF-8
+Pliki nag艂贸wkowe i dokumentacja do biblioteki konwersji plik贸w z
 formatu HDF 4.x do HDF5 i odwrotnie.
 
 %package static
 Summary:	Static HDF 4.x to/from HDF5 conversion library
-Summary(pl):	Biblioteka statyczna do konwersji pomi阣zy HDF 4.x i HDF5
+Summary(pl.UTF-8):   Biblioteka statyczna do konwersji pomi臋dzy HDF 4.x i HDF5
 Group:		Development/Libraries
 Requires:	%{name}-lib = %{version}-%{release}
 
@@ -71,8 +71,8 @@ Requires:	%{name}-lib = %{version}-%{release}
 Static library for file convertion from HDF 4.x to HDF5 or from HDF5
 to HDF 4.x format.
 
-%description static -l pl
-Biblioteka statyczna do konwersji plik體 z formatu HDF 4.x do HDF5
+%description static -l pl.UTF-8
+Biblioteka statyczna do konwersji plik贸w z formatu HDF 4.x do HDF5
 oraz z HDF5 do HDF 4.x.
 
 %prep
