@@ -1,5 +1,5 @@
 Summary:	HDF 4.x to/from HDF5 conversion tools
-Summary(pl.UTF-8):   Narzędzia do konwersji pomiędzy HDF 4.x i HDF5
+Summary(pl.UTF-8):	Narzędzia do konwersji pomiędzy HDF 4.x i HDF5
 Name:		h4h5tools
 Version:	1.2
 Release:	1
@@ -34,7 +34,7 @@ HDF 4.x.
 
 %package lib
 Summary:	HDF 4.x to/from HDF5 conversion library
-Summary(pl.UTF-8):   Biblioteka do konwersji pomiędzy HDF 4.x i HDF5
+Summary(pl.UTF-8):	Biblioteka do konwersji pomiędzy HDF 4.x i HDF5
 Group:		Development/Libraries
 
 %description lib
@@ -47,7 +47,7 @@ do HDF 4.x.
 
 %package devel
 Summary:	Header files for HDF 4.x to/from HDF5 conversion library
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki konwersji pomiędzy HDF 4.x i HDF5
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki konwersji pomiędzy HDF 4.x i HDF5
 Group:		Development/Libraries
 Requires:	%{name}-lib = %{version}-%{release}
 Requires:	hdf-devel
@@ -63,7 +63,7 @@ formatu HDF 4.x do HDF5 i odwrotnie.
 
 %package static
 Summary:	Static HDF 4.x to/from HDF5 conversion library
-Summary(pl.UTF-8):   Biblioteka statyczna do konwersji pomiędzy HDF 4.x i HDF5
+Summary(pl.UTF-8):	Biblioteka statyczna do konwersji pomiędzy HDF 4.x i HDF5
 Group:		Development/Libraries
 Requires:	%{name}-lib = %{version}-%{release}
 
