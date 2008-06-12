@@ -1,12 +1,12 @@
 Summary:	HDF 4.x to/from HDF5 conversion tools
 Summary(pl.UTF-8):	Narzędzia do konwersji pomiędzy HDF 4.x i HDF5
 Name:		h4h5tools
-Version:	1.2
+Version:	2.0
 Release:	1
 Group:		Applications/File
-License:	Nearly BSD, but changed sources must be marked
-Source0:	ftp://ftp.ncsa.uiuc.edu/HDF/HDF5/h4toh5/src/%{name}-%{version}.tar.gz
-# Source0-md5:	a57c720f464956fbe3a730def01c9781
+License:	BSD-like, but changed sources must be marked
+Source0:	ftp://ftp.hdfgroup.org/HDF5/h4toh5/src/%{name}_20.tar.gz
+# Source0-md5:	fda518fb9441fb04ca9f9b3ae0688260
 Source1:	http://hdf.ncsa.uiuc.edu/h4toh5/h4toh5lib_UG.pdf
 # Source1-md5:	59dbe83604d64bcca35145899456c96e
 Source2:	http://hdf.ncsa.uiuc.edu/h4toh5/h4toh5lib_RM.pdf
@@ -76,7 +76,7 @@ Biblioteka statyczna do konwersji plików z formatu HDF 4.x do HDF5
 oraz z HDF5 do HDF 4.x.
 
 %prep
-%setup -q
+%setup -q -n %{name}_20
 %patch0 -p1
 %patch1 -p1
 
@@ -87,7 +87,7 @@ install %{SOURCE1} %{SOURCE2} .
 %{__aclocal}
 %{__autoconf}
 %{__automake}
-CPPFLAGS="-I/usr/include/hdf"
+CPPFLAGS="-I/usr/include/hdf -DH5_USE_16_API"
 %configure
 
 %{__make} \
@@ -113,21 +113,23 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc COPYING release_docs/release.txt
+%doc COPYING release_docs/RELEASE.txt
 %attr(755,root,root) %{_bindir}/h4toh5
 %attr(755,root,root) %{_bindir}/h5toh4
 
 %files lib
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libh4toh5.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libh4toh5.so.0
 
 %files devel
 %defattr(644,root,root,755)
 %doc h4toh5lib_UG.pdf h4toh5lib_RM.pdf
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_libdir}/lib*.la
-%{_includedir}/*
+%attr(755,root,root) %{_libdir}/libh4toh5.so
+%{_libdir}/libh4toh5.la
+%{_includedir}/H4TOH5api_adpt.h
+%{_includedir}/h4toh5*.h
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libh4toh5.a
