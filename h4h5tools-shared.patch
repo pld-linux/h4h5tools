@@ -1,6 +1,6 @@
 --- h4h5tools_20/lib/src/Makefile.am.orig	2008-05-23 18:34:47.000000000 +0200
 +++ h4h5tools_20/lib/src/Makefile.am	2008-06-12 18:40:44.720352249 +0200
-@@ -15,13 +15,13 @@
+@@ -15,13 +15,14 @@
  #
  
  
@@ -14,6 +14,7 @@
                                                                                  
 -libh4toh5_a_SOURCES = $(CSOURCES)
 +libh4toh5_la_SOURCES = $(CSOURCES)
++libh4toh5_la_LIBADD = -lmfhdf
  include_HEADERS = $(CHEADERS)
  
 --- h4h5tools-1.2/lib/examples/Makefile.am.orig	2004-07-21 22:08:19.000000000 +0200

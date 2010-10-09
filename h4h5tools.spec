@@ -1,20 +1,16 @@
 Summary:	HDF 4.x to/from HDF5 conversion tools
 Summary(pl.UTF-8):	Narzędzia do konwersji pomiędzy HDF 4.x i HDF5
 Name:		h4h5tools
-Version:	2.0
+Version:	2.1.1
 Release:	1
 Group:		Applications/File
 License:	BSD-like, but changed sources must be marked
-Source0:	ftp://ftp.hdfgroup.org/HDF5/h4toh5/src/%{name}_20.tar.gz
-# Source0-md5:	fda518fb9441fb04ca9f9b3ae0688260
-Source1:	http://hdf.ncsa.uiuc.edu/h4toh5/h4toh5lib_UG.pdf
-# Source1-md5:	59dbe83604d64bcca35145899456c96e
-Source2:	http://hdf.ncsa.uiuc.edu/h4toh5/h4toh5lib_RM.pdf
-# Source2-md5:	dd9e2ca98a87e5f808b67ba5767b07ef
+Source0:	ftp://ftp.hdfgroup.org/HDF5/h4toh5/src/%{name}-%{version}.tar.gz
+# Source0-md5:	1ce777f77fe434a677cfdf9669cd2b29
 Patch0:		%{name}-config.patch
 Patch1:		%{name}-shared.patch
 URL:		http://hdf.ncsa.uiuc.edu/h4toh5/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	hdf-devel >= 4.0
 BuildRequires:	hdf5-devel
@@ -76,34 +72,26 @@ Biblioteka statyczna do konwersji plików z formatu HDF 4.x do HDF5
 oraz z HDF5 do HDF 4.x.
 
 %prep
-%setup -q -n %{name}_20
+%setup -q
 %patch0 -p1
 %patch1 -p1
-
-install %{SOURCE1} %{SOURCE2} .
 
 %build
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %{__automake}
-CPPFLAGS="-I/usr/include/hdf -DH5_USE_16_API"
+CPPFLAGS="%{rpmcppflags} -I/usr/include/hdf -DH5_USE_16_API"
 %configure
 
 %{__make} \
-	libh4toh5_la_LIBADD="-lmfhdf" \
 	h5toh4_LDADD="-lmfhdf"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_includedir}
 
 %{__make} install \
-	libdir=$RPM_BUILD_ROOT%{_libdir} \
-	includedir=$RPM_BUILD_ROOT%{_includedir} \
-	bindir=$RPM_BUILD_ROOT%{_bindir}
-
-find doc -name Dependencies -o -name Makefile\* | xargs rm -f
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -113,7 +101,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc COPYING release_docs/RELEASE.txt
+%doc COPYING release_docs/{HISTORY,RELEASE}.txt
 %attr(755,root,root) %{_bindir}/h4toh5
 %attr(755,root,root) %{_bindir}/h5toh4
 
@@ -124,7 +112,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc h4toh5lib_UG.pdf h4toh5lib_RM.pdf
+%doc doc/*.pdf
 %attr(755,root,root) %{_libdir}/libh4toh5.so
 %{_libdir}/libh4toh5.la
 %{_includedir}/H4TOH5api_adpt.h
