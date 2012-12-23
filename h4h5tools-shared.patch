@@ -1,6 +1,6 @@
---- h4h5tools_20/lib/src/Makefile.am.orig	2008-05-23 18:34:47.000000000 +0200
-+++ h4h5tools_20/lib/src/Makefile.am	2008-06-12 18:40:44.720352249 +0200
-@@ -15,13 +15,14 @@
+--- h4h5tools-2.2.1/lib/src/Makefile.am.orig	2012-12-23 20:33:44.221222353 +0100
++++ h4h5tools-2.2.1/lib/src/Makefile.am	2012-12-23 20:35:53.314552995 +0100
+@@ -14,13 +14,14 @@
  #
  
  
@@ -10,7 +10,7 @@
  CSOURCES = H4TOH5I.c h4toh5anno.c h4toh5pal.c h4toh5sds.c h4toh5util.c  \
          h4toh5vdata.c h4toh5vgroup.c h4toh5image.c h4toh5main.c h4toh5eos.c
                                                                                  
- CHEADERS = h4toh5.h H4TOH5api_adpt.h h4toh5vector.h
+ CHEADERS = h4toh5.h H4TOH5api_adpt.h h4toh5vector.h h4toh5apicompatible.h
                                                                                  
 -libh4toh5_a_SOURCES = $(CSOURCES)
 +libh4toh5_la_SOURCES = $(CSOURCES)

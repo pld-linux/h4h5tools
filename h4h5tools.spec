@@ -1,19 +1,20 @@
-# TODO: hdfeos2 >= 2.17: http://hdfeos.org/ ftp://edhs1.gsfc.nasa.gov/edhs/hdfeos/latest_release/
 Summary:	HDF 4.x to/from HDF5 conversion tools
 Summary(pl.UTF-8):	Narzędzia do konwersji pomiędzy HDF 4.x i HDF5
 Name:		h4h5tools
-Version:	2.2.0
+Version:	2.2.1
 Release:	1
 Group:		Applications/File
 License:	BSD-like, but changed sources must be marked
-Source0:	ftp://ftp.hdfgroup.org/HDF5/h4toh5/src/%{name}-%{version}.tar.gz
-# Source0-md5:	06f1acab0d2cb09f9a7edeb9d38c78a9
+Source0:	ftp://ftp.hdfgroup.org/HDF5/releases/tools/h4toh5/h4toh5-%{version}/src/%{name}-%{version}.tar.gz
+# Source0-md5:	4dbfd9fd3b8e3cb0a0518fee596fd2cf
 Patch0:		%{name}-config.patch
 Patch1:		%{name}-shared.patch
+Patch2:		%{name}-hdfeos.patch
 URL:		http://hdf.ncsa.uiuc.edu/h4toh5/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	hdf-devel >= 4.2.6
+BuildRequires:	hdf-eos-devel >= 2.17
 BuildRequires:	hdf5-devel >= 1.6.10
 BuildRequires:	libjpeg-devel >= 6b
 BuildRequires:	libtool
@@ -34,6 +35,7 @@ Summary:	HDF 4.x to/from HDF5 conversion library
 Summary(pl.UTF-8):	Biblioteka do konwersji pomiędzy HDF 4.x i HDF5
 Group:		Development/Libraries
 Requires:	hdf >= 4.2.6
+Requires:	hdf-eos >= 2.17
 Requires:	hdf5 >= 1.6.10
 
 %description lib
@@ -50,6 +52,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki konwersji pomiędzy HDF 4.x i H
 Group:		Development/Libraries
 Requires:	%{name}-lib = %{version}-%{release}
 Requires:	hdf-devel >= 4.2.6
+Requires:	hdf-eos-devel >= 2.17
 Requires:	hdf5-devel >= 1.6.10
 
 %description devel
@@ -78,6 +81,7 @@ oraz z HDF5 do HDF 4.x.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -85,7 +89,8 @@ oraz z HDF5 do HDF 4.x.
 %{__autoconf}
 %{__automake}
 CPPFLAGS="%{rpmcppflags} -I/usr/include/hdf -DH5_USE_16_API"
-%configure
+%configure \
+	--with-hdfeos2
 
 %{__make} \
 	h5toh4_LDADD="-lmfhdf"
