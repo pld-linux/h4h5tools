@@ -10,6 +10,7 @@ Source0:	ftp://ftp.hdfgroup.org/HDF5/releases/tools/h4toh5/h4toh5-%{version}/src
 Patch0:		%{name}-config.patch
 Patch1:		%{name}-shared.patch
 Patch2:		%{name}-hdfeos.patch
+Patch3:		%{name}-format.patch
 URL:		http://www.hdfgroup.org/h4toh5/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -82,6 +83,7 @@ oraz z HDF5 do HDF 4.x.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__libtoolize}

@@ -1,0 +1,50 @@
+--- h4h5tools-2.2.1/utils/h5toh4/h5toh4.c.orig	2011-12-23 21:56:47.000000000 +0100
++++ h4h5tools-2.2.1/utils/h5toh4/h5toh4.c	2012-12-24 11:44:20.413416898 +0100
+@@ -293,7 +293,7 @@
+   {
+     (void) fprintf(stderr, err1, argc);
+     PrintOptions_h5toh4();
+-    (void) fprintf(stderr, err4);
++    (void) fputs(err4, stderr);
+     return EXIT_FAILURE;
+   }
+ 
+@@ -305,7 +305,7 @@
+     if ((token = gtoken(argv[i])) == TOK_ERR)
+     {
+       PrintOptions_h5toh4();
+-      (void) fprintf(stderr, err4);
++      (void) fputs(err4, stderr);
+       return EXIT_FAILURE;
+     }
+ 
+@@ -348,9 +348,9 @@
+ 
+       case TOK_ERR:   /* command syntax error */
+       default:
+-        (void) fprintf(stderr, err2);
++        (void) fputs(err2, stderr);
+ 				PrintOptions_h5toh4();
+-    		(void) fprintf(stderr, err4);
++    		(void) fputs(err4, stderr);
+     		return EXIT_FAILURE;
+     }
+   }
+@@ -6435,7 +6435,7 @@
+ 		case DFNT_INT32:
+ 			ip =  (int32 *)value;
+ 			for (i = 0; i < count; i++) {
+-			    sprintf(tmp,"%ld,",ip[i]);
++			    sprintf(tmp,"%ld,",(long)ip[i]);
+ 			    thing = strcat(thing,tmp);
+ 			}
+ 			free(tmp);
+@@ -6485,7 +6485,7 @@
+ 		case DFNT_UINT32:
+ 			uip =  (uint32 *)value;
+ 			for (i = 0; i < count; i++) {
+-			    sprintf(tmp,"%ld,",uip[i]);
++			    sprintf(tmp,"%ld,",(long)uip[i]);
+ 			    thing = strcat(thing,tmp);
+ 			}
+ 			free(tmp);
