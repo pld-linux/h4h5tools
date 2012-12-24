@@ -10,7 +10,7 @@ Source0:	ftp://ftp.hdfgroup.org/HDF5/releases/tools/h4toh5/h4toh5-%{version}/src
 Patch0:		%{name}-config.patch
 Patch1:		%{name}-shared.patch
 Patch2:		%{name}-hdfeos.patch
-URL:		http://hdf.ncsa.uiuc.edu/h4toh5/
+URL:		http://www.hdfgroup.org/h4toh5/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	hdf-devel >= 4.2.6
