@@ -5,13 +5,13 @@ Version:	2.2.4
 Release:	1
 Group:		Applications/File
 License:	BSD-like, changed sources must be marked
-Source0:	https://support.hdfgroup.org/ftp/HDF5/releases/tools/h4toh5/h4toh5-%{version}/src/%{name}-%{version}.tar.gz
+Source0:	https://support.hdfgroup.org/ftp/HDF5/releases/h4toh5/h4toh5-%{version}/src/%{name}-%{version}.tar.gz
 # Source0-md5:	a1f3dd2882d890f40454782fa50d077d
 Patch0:		%{name}-config.patch
 Patch1:		%{name}-shared.patch
 Patch2:		%{name}-hdfeos.patch
 Patch3:		%{name}-format.patch
-URL:		http://www.hdfgroup.org/h4toh5/
+URL:		http://portal.hdfgroup.org/display/support/h4h5tools
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	hdf-devel >= 4.2.6
