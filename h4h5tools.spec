@@ -1,12 +1,12 @@
 Summary:	HDF 4.x to/from HDF5 conversion tools
 Summary(pl.UTF-8):	Narzędzia do konwersji pomiędzy HDF 4.x i HDF5
 Name:		h4h5tools
-Version:	2.2.4
+Version:	2.2.5
 Release:	1
 Group:		Applications/File
 License:	BSD-like, changed sources must be marked
 Source0:	https://support.hdfgroup.org/ftp/HDF5/releases/h4toh5/h4toh5-%{version}/src/%{name}-%{version}.tar.gz
-# Source0-md5:	a1f3dd2882d890f40454782fa50d077d
+# Source0-md5:	844eeedbf95b7f83c1a158b24561e3d7
 Patch0:		%{name}-config.patch
 Patch1:		%{name}-shared.patch
 Patch2:		%{name}-hdfeos.patch
@@ -20,7 +20,7 @@ BuildRequires:	hdf5-devel >= 1.6.10
 BuildRequires:	libjpeg-devel >= 6b
 BuildRequires:	libtool
 BuildRequires:	zlib-devel >= 1.1.3
-Obsoletes:	hdf5-hdf4
+Obsoletes:	hdf5-hdf4 < 1.1.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -80,10 +80,10 @@ oraz z HDF5 do HDF 4.x.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
 
 %build
 %{__libtoolize}
