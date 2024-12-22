@@ -1,0 +1,78 @@
+--- h4h5tools-2.2.5/lib/src/h4toh5main.c.orig	2020-03-10 15:33:18.000000000 +0100
++++ h4h5tools-2.2.5/lib/src/h4toh5main.c	2024-12-22 08:16:29.398558715 +0100
+@@ -518,7 +518,7 @@ hid_t H4toH5open(char* filename,char* fi
+ 
+ /* create or open current hdf5 file. */
+ 
+-    h5_extension = HDstrdup("h5");
++    h5_extension = strdup("h5");
+     short file5name_null=0;
+     if(file5name == NULL) {
+         file5name= BuildFilename(filename,h5_extension);
+--- h4h5tools-2.2.5/utils/h4toh5/h4toh5main.c.orig	2020-03-10 15:33:18.000000000 +0100
++++ h4h5tools-2.2.5/utils/h4toh5/h4toh5main.c	2024-12-22 08:16:36.051856005 +0100
+@@ -874,7 +874,7 @@ int gen_h4toh5(char*h4_filename,char*h5_
+ #endif
+ 
+     if(h5_filename == NULL){
+-        h5_extension = HDstrdup("h5");
++        h5_extension = strdup("h5");
+         h5_filename = util_BuildFilename(h4_filename,h5_extension);
+         free(h5_extension);
+         if (h5_filename == NULL) {
+--- h4h5tools-2.2.5/utils/h5toh4/h5toh4.c.orig	2024-12-22 07:55:42.471980563 +0100
++++ h4h5tools-2.2.5/utils/h5toh4/h5toh4.c	2024-12-22 08:16:54.701754969 +0100
+@@ -392,7 +392,7 @@ main(int argc, char *argv[])
+ 
+       if (outfile_named == FALSE)
+       {
+-            h4_extension = HDstrdup("hdf");
++            h4_extension = strdup("hdf");
+             h4_filename = BuildFilename(h5_filename, h4_extension);
+ 
+             if (h4_filename == NULL) {
+@@ -907,7 +907,7 @@ int h5toh4(char *h5_filename, char *h4_f
+                 op_data.vgroup_id = 0;
+ 
+                 /* start at root group */
+-                /*if ((status = convert_group(gid, HDstrdup("/"), &op_data)) != SUCCEED) */
++                /*if ((status = convert_group(gid, strdup("/"), &op_data)) != SUCCEED) */
+                 if ((status = convert_group(gid, "/", &op_data)) != SUCCEED) {
+                     fprintf(stderr, "Error: convert_group did not work for %s\n", "/");
+                     DEBUG_PRINT("Error detected in %s() [%s line %d]\n",
+@@ -4006,7 +4006,7 @@ find_objs(hid_t group, const char *name,
+                 info->type_table->objs[info->type_table->nobjs-1].objflag = 1;
+             } else {
+                 free(info->type_table->objs[i].objname);
+-                info->type_table->objs[i].objname = HDstrdup(tmp);
++                info->type_table->objs[i].objname = strdup(tmp);
+                 info->type_table->objs[i].recorded = 1; 
+ 
+                 /* named data type */  
+@@ -4087,7 +4087,7 @@ set_tableflag(table_t *table, int idx)
+  *
+  * Purpose:     Get name of i'th object in table
+  *
+- * Return:      Success:    HDstrdup() of object name character string
++ * Return:      Success:    strdup() of object name character string
+  *
+  *              Failure:    NULL and sets errno to ENOMEM
+  *
+@@ -4098,7 +4098,7 @@ set_tableflag(table_t *table, int idx)
+ static char *
+ get_objectname(table_t *table, int idx)
+ {
+-    return HDstrdup(table->objs[idx].objname);
++    return strdup(table->objs[idx].objname);
+ }
+ 
+ 
+@@ -4138,7 +4138,7 @@ add_obj(table_t *table, unsigned long *o
+     table->objs[i].objno[0] = objno[0];
+     table->objs[i].objno[1] = objno[1];
+     free(table->objs[i].objname);
+-    table->objs[i].objname = HDstrdup(objname);
++    table->objs[i].objname = strdup(objname);
+ }
+ 
+ /* pkamat. Everything in this file below this point has been ADDED by pkamat. */

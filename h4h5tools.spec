@@ -11,7 +11,10 @@ Patch0:		%{name}-config.patch
 Patch1:		%{name}-shared.patch
 Patch2:		%{name}-hdfeos.patch
 Patch3:		%{name}-format.patch
-URL:		http://portal.hdfgroup.org/display/support/h4h5tools
+Patch4:		%{name}-hdf4.3.patch
+Patch5:		%{name}-includes.patch
+Patch6:		%{name}-types.patch
+URL:		https://support.hdfgroup.org/documentation/index.html
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	hdf-devel >= 4.2.6
@@ -84,18 +87,20 @@ oraz z HDF5 do HDF 4.x.
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
+%patch -P6 -p1
 
 %build
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %{__automake}
-CPPFLAGS="%{rpmcppflags} -I/usr/include/hdf -DH5_USE_16_API"
+CPPFLAGS="%{rpmcppflags} -I/usr/include/hdf"
 %configure \
 	--with-hdfeos2
 
-%{__make} \
-	h5toh4_LDADD="-lmfhdf"
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT

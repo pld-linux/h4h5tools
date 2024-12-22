@@ -1,0 +1,55 @@
+--- h4h5tools-2.2.5/lib/src/h4toh5main.c.orig	2024-12-22 08:17:47.414802732 +0100
++++ h4h5tools-2.2.5/lib/src/h4toh5main.c	2024-12-22 08:21:48.053499080 +0100
+@@ -37,6 +37,7 @@ Author:  Kent Yang(myang6@hdfgroup.org)
+ *****************************************************************************/
+ 
+ 
++#include <sys/stat.h>
+ #include "h4toh5main.h"
+ 
+ /*-------------------------------------------------------------------------
+--- h4h5tools-2.2.5/lib/test/h4toh5test.c.orig	2020-03-10 15:33:18.000000000 +0100
++++ h4h5tools-2.2.5/lib/test/h4toh5test.c	2024-12-22 08:22:32.523258166 +0100
+@@ -16,6 +16,8 @@
+ #include "hdf.h"
+ #include "mfhdf.h"
+ #include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
+ 
+ 
+ #define FILESDS1  "sds_typ_test.hdf"
+--- h4h5tools-2.2.5/lib/test/h4h5apitestadvgroup.c.orig	2020-03-10 15:33:18.000000000 +0100
++++ h4h5tools-2.2.5/lib/test/h4h5apitestadvgroup.c	2024-12-22 08:23:49.379508467 +0100
+@@ -11,6 +11,7 @@
+  * either file, you may request a copy from help@hdfgroup.org.               *
+  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ 
++#include <stdlib.h>
+ #include "h4toh5.h"
+ #define _HDF_CHK_TBL_CLASST "_HDF_CHK_TBL_"
+ /* There are 12 test cases for h4toh5 library.*/
+--- h4h5tools-2.2.5/lib/test/h4toh5eostest.c.orig	2020-03-10 15:33:18.000000000 +0100
++++ h4h5tools-2.2.5/lib/test/h4toh5eostest.c	2024-12-22 08:24:39.852568364 +0100
+@@ -11,6 +11,8 @@
+  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ 
+ #ifdef HAVE_LIBHDFEOS
++#include <stdlib.h>
++#include <string.h>
+ #include "hdf.h"
+ #include "mfhdf.h"
+ #include "HdfEosDef.h"
+--- h4h5tools-2.2.5/utils/h4toh5/h4toh5main.c.orig	2024-12-22 08:17:47.414802732 +0100
++++ h4h5tools-2.2.5/utils/h4toh5/h4toh5main.c	2024-12-22 08:25:50.512185568 +0100
+@@ -39,8 +39,10 @@ Author:  Kent Yang(myang6@hdfgroup.org)
+ #include "h4toh5main.h"
+ #include "h4toh5.h"
+ #ifndef WIN32
++#include <stdlib.h>
+ #include <strings.h>
+ #include <string.h>
++#include <sys/stat.h>
+ #endif
+ 
+ 

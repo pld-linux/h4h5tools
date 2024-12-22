@@ -1,0 +1,20 @@
+--- h4h5tools-2.2.5/lib/src/h4toh5eos.c.orig	2024-12-22 12:09:33.436134014 +0100
++++ h4h5tools-2.2.5/lib/src/h4toh5eos.c	2024-12-22 12:09:36.299451836 +0100
+@@ -725,7 +725,7 @@ static int get_dimension(hid_t h4toh5id,
+  *
+  * @return FAIL if failed, SUCCEED if successful
+  */
+-static int get_fieldinfo(hid_t h4toh5id, int32 id, int32 (*entries)(int32, int32, int32 *), int32 (*inq)(int32, char *, int32 *, int32 *), intn (*fldinfo)(int32, char *, int32 *, int32 *, int32 *, char *), intn (*readfld)(int32, char *, int32 *, int32 *, int32 *, VOIDP), intn (*getfill)(int32, char *, VOIDP), int geofield, fieldinfoalloc *fields)
++static int get_fieldinfo(hid_t h4toh5id, int32 id, int32 (*entries)(int32, int32, int32 *), int32 (*inq)(int32, char *, int32 *, int32 *), intn (*fldinfo)(int32, const char *, int32 *, int32 *, int32 *, char *), intn (*readfld)(int32, const char *, int32 *, int32 *, int32 *, VOIDP), intn (*getfill)(int32, const char *, VOIDP), int geofield, fieldinfoalloc *fields)
+ {
+     char *namelist = NULL;
+     namelistalloc dimnames;
+@@ -824,7 +824,7 @@ static int get_fieldinfo(hid_t h4toh5id,
+  * 
+  * @return FAIL if failed, SUCCEED if successful
+  */
+-static int get_attribute(hid_t h4toh5id, int32 id, int32 (*inq)(int32, char *, int32 *), intn (*attrinfo)(int32, char *, int32 *, int32 *), intn (*readattr)(int32, char *, VOIDP), attributealloc *attrs)
++static int get_attribute(hid_t h4toh5id, int32 id, int32 (*inq)(int32, char *, int32 *), intn (*attrinfo)(int32, const char *, int32 *, int32 *), intn (*readattr)(int32, const char *, VOIDP), attributealloc *attrs)
+ {
+     char *namelist = NULL;
+     int succeeded = 0;
