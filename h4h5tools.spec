@@ -2,7 +2,7 @@ Summary:	HDF 4.x to/from HDF5 conversion tools
 Summary(pl.UTF-8):	Narzędzia do konwersji pomiędzy HDF 4.x i HDF5
 Name:		h4h5tools
 Version:	2.2.5
-Release:	1
+Release:	2
 Group:		Applications/File
 License:	BSD-like, changed sources must be marked
 Source0:	https://support.hdfgroup.org/ftp/HDF5/releases/h4toh5/h4toh5-%{version}/src/%{name}-%{version}.tar.gz
